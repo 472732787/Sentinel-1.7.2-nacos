@@ -53,7 +53,8 @@ public class NacosConfig {
     public ConfigService nacosConfigService() throws Exception {
         Properties properties = new Properties();
         properties.put("serverAddr", nacosAddr);
-       // properties.put("namespace", namespace);
+        //properties.put("dataId", namespace);
+        properties.put("namespace", namespace);
         return ConfigFactory.createConfigService(properties);
     }
 }
