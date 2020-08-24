@@ -65,9 +65,6 @@ public class DegradeController {
     private DynamicRulePublisher<List<DegradeRuleEntity>> rulePublisher;
 
     @Autowired
-    private AuthService<HttpServletRequest> authService;
-
-    @Autowired
     private SentinelApiClient sentinelApiClient;
 
     @ResponseBody
@@ -206,8 +203,7 @@ public class DegradeController {
     @ResponseBody
     @RequestMapping("/delete.json")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<Long> delete(HttpServletRequest request, Long id) {
-        AuthService.AuthUser authUser = authService.getAuthUser(request);
+    public Result<Long> delete(Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }

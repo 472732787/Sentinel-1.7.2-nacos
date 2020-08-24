@@ -63,8 +63,6 @@ public class AuthorityRuleController {
     @Autowired
     private RuleRepository<AuthorityRuleEntity, Long> repository;
     @Autowired
-    private AuthService<HttpServletRequest> authService;
-    @Autowired
     @Qualifier("authRuleNacosPublisher")
     private DynamicRulePublisher<List<AuthorityRuleEntity>> rulePublisher;
     @Autowired
@@ -183,8 +181,7 @@ public class AuthorityRuleController {
 
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
-    public Result<Long> apiDeleteRule(HttpServletRequest request,@PathVariable("id") Long id) {
-        AuthService.AuthUser authUser = authService.getAuthUser(request);
+    public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id cannot be null");
         }
@@ -192,7 +189,6 @@ public class AuthorityRuleController {
         if (oldEntity == null) {
             return Result.ofSuccess(null);
         }
-        authUser.authTarget(oldEntity.getApp(), PrivilegeType.DELETE_RULE);
         try {
             repository.delete(id);
             publishRules(oldEntity.getApp());

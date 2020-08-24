@@ -60,9 +60,6 @@ public class GatewayApiController {
     private SentinelApiClient sentinelApiClient;
 
     @Autowired
-    private AuthService<HttpServletRequest> authService;
-
-    @Autowired
     @Qualifier("gateWayApiNacosProvider")
     private DynamicRuleProvider<List<ApiDefinitionEntity>> ruleProvider;
 
