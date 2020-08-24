@@ -49,7 +49,7 @@ public class DegradeRuleNacosPublisher implements DynamicRulePublisher<List<Degr
         if (rules == null) {
             return;
         }
-        configService.publishConfig(app + NacosConfigUtil.FLOW_DATA_ID_POSTFIX,
+        configService.publishConfig(app + NacosConfigUtil.DEGRAD_DATA_ID_POSTFIX,
                 groupId, converter.convert(rules));
     }
 }

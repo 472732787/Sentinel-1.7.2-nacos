@@ -22,14 +22,15 @@ package com.alibaba.csp.sentinel.dashboard.rule.nacos;
 public final class NacosConfigUtil {
 
     public static final String GROUP_ID = "SENTINEL_GROUP";
-    
+
     public static final String FLOW_DATA_ID_POSTFIX = "-flow-rules";
-    public static final String PARAM_FLOW_DATA_ID_POSTFIX = "-param-rules";
+    public static final String DEGRAD_DATA_ID_POSTFIX = "-degrade-rules";
     public static final String AUTH_DATA_ID_POSTFIX = "-authority-rules";
     public static final String SYS_DATA_ID_POSTFIX = "-system-rules";
+    public static final String PARAM_FLOW_DATA_ID_POSTFIX = "-param-rules";
     public static final String CLUSTER_MAP_DATA_ID_POSTFIX = "-cluster-map";
     public static final String GETWAY_API_DATA_ID_POSTFIX = "-getway-api";
-    public static final String GETWAY_FLOW_DATA_ID_POSTFIX = "-getway-flo";
+    public static final String GETWAY_FLOW_DATA_ID_POSTFIX = "-getway-flow";
 
     /**
      * cc for `cluster-client`

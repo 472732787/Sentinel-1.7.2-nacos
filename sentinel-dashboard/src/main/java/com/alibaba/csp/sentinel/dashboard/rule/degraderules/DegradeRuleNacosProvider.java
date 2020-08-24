@@ -45,7 +45,7 @@ public class DegradeRuleNacosProvider implements DynamicRuleProvider<List<Degrad
 
     @Override
     public List<DegradeRuleEntity> getRules(String appName) throws Exception {
-        String rules = configService.getConfig(appName + NacosConfigUtil.FLOW_DATA_ID_POSTFIX,
+        String rules = configService.getConfig(appName + NacosConfigUtil.DEGRAD_DATA_ID_POSTFIX,
                 groupId, 3000);
         if (StringUtil.isEmpty(rules)) {
             return new ArrayList<>();
