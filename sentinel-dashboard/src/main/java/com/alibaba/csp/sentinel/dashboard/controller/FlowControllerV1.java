@@ -65,9 +65,6 @@ public class FlowControllerV1 {
     private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
 
     @Autowired
-    private AuthService<HttpServletRequest> authService;
-
-    @Autowired
     @Qualifier("flowRuleNacosProvider")
     private DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
 
@@ -80,12 +77,10 @@ public class FlowControllerV1 {
 
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<FlowRuleEntity>> apiQueryMachineRules(HttpServletRequest request,
-                                                             @RequestParam String app,
+    public Result<List<FlowRuleEntity>> apiQueryMachineRules(@RequestParam String app,
                                                              @RequestParam String ip,
                                                              @RequestParam Integer port) {
-        AuthService.AuthUser authUser = authService.getAuthUser(request);
-        authUser.authTarget(app, PrivilegeType.READ_RULE);
+
 
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
@@ -266,8 +261,7 @@ public class FlowControllerV1 {
 
     @DeleteMapping("/delete.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<Long> apiDeleteFlowRule(HttpServletRequest request, Long id) {
-        AuthService.AuthUser authUser = authService.getAuthUser(request);
+    public Result<Long> apiDeleteFlowRule(Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }
@@ -275,7 +269,6 @@ public class FlowControllerV1 {
         if (oldEntity == null) {
             return Result.ofSuccess(null);
         }
-        authUser.authTarget(oldEntity.getApp(), PrivilegeType.DELETE_RULE);
         try {
             repository.delete(id);
             //删除nacos上的配置规则

@@ -64,7 +64,6 @@ public class DegradeController {
     @Qualifier("degradeRuleNacosPublisher")
     private DynamicRulePublisher<List<DegradeRuleEntity>> rulePublisher;
 
-
     @Autowired
     private AuthService<HttpServletRequest> authService;
 
