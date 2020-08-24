@@ -98,7 +98,6 @@ public class FlowControllerV1 {
         }
         try {
            // List<FlowRuleEntity> rules = sentinelApiClient.fetchFlowRuleOfMachine(app, ip, port);
-            //从磁盘获取文件数据
             List<FlowRuleEntity> rules = ruleProvider.getRules(app);
             rules = repository.saveAll(rules);
             return Result.ofSuccess(rules);
