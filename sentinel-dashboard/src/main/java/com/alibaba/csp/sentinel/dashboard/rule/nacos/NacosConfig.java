@@ -15,8 +15,9 @@
  */
 package com.alibaba.csp.sentinel.dashboard.rule.nacos;
 
-import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.DegradeRuleEntity;
-import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.ApiDefinitionEntity;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.GatewayFlowRuleEntity;
+import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.*;
 import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.config.ConfigFactory;
@@ -40,6 +41,11 @@ public class NacosConfig {
 
     @Value("${nacos.namespace}")
     private String namespace;
+
+    /**
+     * 流控
+     * @return
+     */
     @Bean
     public Converter<List<FlowRuleEntity>, String> flowRuleEntityEncoder() {
         return JSON::toJSONString;
@@ -50,6 +56,10 @@ public class NacosConfig {
         return s -> JSON.parseArray(s, FlowRuleEntity.class);
     }
 
+    /**
+     * 降级
+     * @return
+     */
     @Bean
     public Converter<List<DegradeRuleEntity>, String> degradeRuleEntityEncoder() {
         return JSON::toJSONString;
@@ -59,6 +69,70 @@ public class NacosConfig {
         return s -> JSON.parseArray(s, DegradeRuleEntity.class);
     }
 
+    /**
+     * 用户认证
+     * @return
+     */
+   @Bean
+   public Converter<List<AuthorityRuleEntity>, String> authorRuleEntityEncoder() {
+       return JSON::toJSONString;
+   }
+    @Bean
+    public Converter<String, List<AuthorityRuleEntity>> authorRuleEntityDecoder() {
+        return s -> JSON.parseArray(s, AuthorityRuleEntity.class);
+    }
+
+    /**
+     * 热点参数
+      * @return
+     */
+  @Bean
+  public Converter<List<ParamFlowRuleEntity>, String> paramRuleEntityEncoder() {
+      return JSON::toJSONString;
+  }
+    @Bean
+    public Converter<String, List<ParamFlowRuleEntity>> paramRuleEntityDecoder() {
+        return s -> JSON.parseArray(s, ParamFlowRuleEntity.class);
+    }
+    /**
+     * 系统规则
+     * @return
+     */
+    @Bean
+    public Converter<List<SystemRuleEntity>, String> systemRuleEntityEncoder() {
+        return JSON::toJSONString;
+    }
+    @Bean
+    public Converter<String, List<SystemRuleEntity>> systemRuleEntityDecoder() {
+        return s -> JSON.parseArray(s, SystemRuleEntity.class);
+    }
+
+    /**
+     * 网关API
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public Converter<List<ApiDefinitionEntity>,String> apiDefinitionEntityEncoder() {
+        return JSON::toJSONString;
+    }
+    @Bean
+    public Converter<String , List<ApiDefinitionEntity>> apiDefinitionEntityDecoder(){
+        return  s -> JSON.parseArray(s,ApiDefinitionEntity.class);
+    }
+    /**
+     * 网关flowRule
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public Converter<List<GatewayFlowRuleEntity>,String> gatewayFlowRuleEntityEncoder() {
+        return JSON::toJSONString;
+    }
+    @Bean
+    public Converter<String , List<GatewayFlowRuleEntity>> gatewayFlowRuleEntityDecoder(){
+        return  s -> JSON.parseArray(s,GatewayFlowRuleEntity.class);
+    }
 
     @Bean
     public ConfigService nacosConfigService() throws Exception {
